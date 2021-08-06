@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "2.13.6"
+ThisBuild / scalaVersion := "3.0.1"
 ThisBuild / organization := "ru.megains"
 
 //val lwjglVersion = "3.2.3"

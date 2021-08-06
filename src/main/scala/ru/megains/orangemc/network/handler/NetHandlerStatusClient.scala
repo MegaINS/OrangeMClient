@@ -14,7 +14,7 @@ class NetHandlerStatusClient(server:ServerData,networkManager: NetworkManager) e
     var receivedStatus: Boolean = false
     var pingSentAt: Long = 0L
 
-    override def handleServerInfo(packetIn: SPacketServerInfo) {
+    override def handleServerInfo(packetIn: SPacketServerInfo):Unit = {
         if (receivedStatus) networkManager.closeChannel("ServerPinger" + "receivedStatus")
         else {
             receivedStatus = true
@@ -25,14 +25,14 @@ class NetHandlerStatusClient(server:ServerData,networkManager: NetworkManager) e
         }
     }
 
-    override def handlePong(packetIn: SPacketPong) {
+    override def handlePong(packetIn: SPacketPong) :Unit ={
         val i: Long = pingSentAt
         val j: Long = OrangeMClient.getSystemTime
         server.pingToServer = j - i
         networkManager.closeChannel("ServerPinger" + "handlePong")
     }
 
-    override def onDisconnect(msg: String) {
+    override def onDisconnect(msg: String):Unit = {
         if (!successful) {
             log.error("Can\'t ping {}: {}", Array[AnyRef](server.serverIP, msg))
             server.serverMOTD = "Can\'t connect to server."

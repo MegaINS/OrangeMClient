@@ -17,8 +17,8 @@ class RendererMiniBlock(name: String) extends TRenderBlock {
 
         override def render(mm: MeshMaker , blockStateIn: BlockState, world: World, xRIn: Float, yRIn: Float, zRIn: Float): Unit = {
 
-
-            val box = blockStateIn.getBoundingBox.sum(xRIn, yRIn , zRIn )
+            //todo head.
+            val box = blockStateIn.getBoundingBox.head.sum(xRIn, yRIn , zRIn )
 
 
            // if (!world.getCell(blockState.x - 16, blockState.y, blockState.z).isOpaqueCube) {

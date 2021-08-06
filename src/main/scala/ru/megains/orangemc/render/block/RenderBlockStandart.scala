@@ -16,8 +16,8 @@ class RenderBlockStandart(name: String) extends TRenderBlock {
     }
 
     override def render(mm: MeshMaker, blockState: BlockState, world: World, xRIn: Float, yRIn: Float, zRIn: Float): Unit = {
-
-        val box = blockState.getBoundingBox.sum(xRIn, yRIn, zRIn)
+        //todo head.
+        val box = blockState.getBoundingBox.head.sum(xRIn, yRIn, zRIn)
 
         if (!world.getBlock(blockState.x - 1, blockState.y, blockState.z).isOpaqueCube) {
             RenderBlock.renderSideWest(mm, box.minX, box.minY, box.maxY, box.minZ, box.maxZ, getATexture(blockState, Direction.WEST, world))

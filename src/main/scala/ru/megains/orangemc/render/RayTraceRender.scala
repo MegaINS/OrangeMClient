@@ -18,7 +18,7 @@ class RayTraceRender(gameScene: GameScene) {
     var rayTrace: RayTraceResult = RayTraceResult.VOID
 
 
-    def init() {
+    def init():Unit ={
         val zero = 0f
         val neZero = 0.01f
         val one = 1 / 16f
@@ -69,42 +69,49 @@ class RayTraceRender(gameScene: GameScene) {
                     }
                     val mm = MeshMaker.startMake(GL_LINES)
 
-                    val aabb = rayTrace.blockState.getBoundingBox
-
-                    val minX = aabb.minX - 0.01f
-                    val minY = aabb.minY - 0.01f
-                    val minZ = aabb.minZ - 0.01f
-                    val maxX = aabb.maxX + 0.01f
-                    val maxY = aabb.maxY + 0.01f
-                    val maxZ = aabb.maxZ + 0.01f
+                    val aabbs = rayTrace.blockState.getBoundingBox
 
 
-                    mm.setCurrentIndex()
-                    mm.addColor(Color.BLACK)
-                    mm.addVertex(minX, minY, minZ)
-                    mm.addVertex(minX, minY, maxZ)
-                    mm.addVertex(minX, maxY, minZ)
-                    mm.addVertex(minX, maxY, maxZ)
-                    mm.addVertex(maxX, minY, minZ)
-                    mm.addVertex(maxX, minY, maxZ)
-                    mm.addVertex(maxX, maxY, minZ)
-                    mm.addVertex(maxX, maxY, maxZ)
+                    for(aabb<-aabbs) {
 
-                    mm.addIndex(0, 1)
-                    mm.addIndex(0, 2)
-                    mm.addIndex(0, 4)
+                        val minX = aabb.minX - 0.01f
+                        val minY = aabb.minY - 0.01f
+                        val minZ = aabb.minZ - 0.01f
+                        val maxX = aabb.maxX + 0.01f
+                        val maxY = aabb.maxY + 0.01f
+                        val maxZ = aabb.maxZ + 0.01f
 
-                    mm.addIndex(6, 2)
-                    mm.addIndex(6, 4)
-                    mm.addIndex(6, 7)
 
-                    mm.addIndex(3, 1)
-                    mm.addIndex(3, 2)
-                    mm.addIndex(3, 7)
+                        mm.setCurrentIndex()
+                        mm.addColor(Color.BLACK)
+                        mm.addVertex(minX, minY, minZ)
+                        mm.addVertex(minX, minY, maxZ)
+                        mm.addVertex(minX, maxY, minZ)
+                        mm.addVertex(minX, maxY, maxZ)
+                        mm.addVertex(maxX, minY, minZ)
+                        mm.addVertex(maxX, minY, maxZ)
+                        mm.addVertex(maxX, maxY, minZ)
+                        mm.addVertex(maxX, maxY, maxZ)
 
-                    mm.addIndex(5, 1)
-                    mm.addIndex(5, 4)
-                    mm.addIndex(5, 7)
+                        mm.addIndex(0, 1)
+                        mm.addIndex(0, 2)
+                        mm.addIndex(0, 4)
+
+                        mm.addIndex(6, 2)
+                        mm.addIndex(6, 4)
+                        mm.addIndex(6, 7)
+
+                        mm.addIndex(3, 1)
+                        mm.addIndex(3, 2)
+                        mm.addIndex(3, 7)
+
+                        mm.addIndex(5, 1)
+                        mm.addIndex(5, 4)
+                        mm.addIndex(5, 7)
+
+
+                    }
+
 
 
                     blockMouseOver.mesh = mm.make()
