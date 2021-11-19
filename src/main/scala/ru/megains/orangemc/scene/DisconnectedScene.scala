@@ -15,4 +15,6 @@ class DisconnectedScene(multiPlayerScene:MultiPlayerScene,orangeM: OrangeMClient
     override def destroy(): Unit = ???
 
     override def runTickMouse(button: Int, buttonState: Boolean): Unit = ???
+
+    override def resize(width:Int,height:Int): Unit = ???
 }

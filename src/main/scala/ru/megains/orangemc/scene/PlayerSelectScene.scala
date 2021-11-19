@@ -9,62 +9,13 @@ import ru.megains.orangemc.render.shader.GuiShader
 import org.lwjgl.opengl.GL11._
 import ru.megains.orangemc.OrangeMClient
 
-class PlayerSelectScene(orangeM:OrangeMClient) extends Scene {
+class PlayerSelectScene(orangeM:OrangeMClient) extends BaseScene {
 
-    val Z_FAR: Float = 100
-    var shader: Shader = new GuiShader()
-    var camera: OrthographicCamera = new OrthographicCamera(0, Window.wight,Window.height, 0, -100, Z_FAR)
+    val buttonTest_1:MButton = new MButton("Test_1",300, 50,()=>{orangeM.playerName = "Test_1"; orangeM.setScene(new MainMenuScene(orangeM))})
+    addChildren(buttonTest_1)
 
-    val container:MContainer = new MContainer
-
-
-    override def runTickKeyboard(key: Int, action: Int, mods: Int): Unit = {
-
-    }
-
-    override def init(): Unit = {
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        shader.create()
-        container.addChildren(  new MButton("Test_1",    300, 50,()=>{
-            orangeM.playerName = "Test_1"
-            orangeM.setScene(new MainMenuScene(orangeM))
-        }){
-            posX = (orangeM.window.width -300)/2
-            posY = 240
-        })
-
-    }
-
-    override def render(): Unit = {
-        glEnable(GL_STENCIL_TEST)
-        glEnable(GL_BLEND)
-        glEnable(GL_CULL_FACE)
-        glDisable(GL_DEPTH_TEST)
-        camera.setOrtho(0, Window.wight,Window.height, 0, -100, Z_FAR)
-        shader.bind()
-        shader.setUniform(camera)
-
-        container.render(shader)
-
-        shader.unbind()
-
-        glDisable(GL_BLEND)
-        glDisable(GL_CULL_FACE)
-        glEnable(GL_DEPTH_TEST)
-    }
-
-    override def update(): Unit = {
-        container.update()
-    }
-
-    override def destroy(): Unit = {
-
-    }
-
-    override def runTickMouse(button: Int, buttonState: Boolean): Unit = {
-        if(buttonState){
-            container.mouseClick(Mouse.getX,Mouse.getY)
-        }
-
+    override def resize(width:Int,height:Int): Unit = {
+        buttonTest_1.posX = (width -300)/2
+        buttonTest_1.posY = 240
     }
 }

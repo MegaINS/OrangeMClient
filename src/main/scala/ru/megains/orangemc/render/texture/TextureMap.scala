@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11._
 import scala.collection.immutable.HashMap
 import org.lwjgl.opengl.GL30._
 
-class TextureMap(name:String) extends TTexture(new TextureData(null)) with TTextureRegister{
+class TextureMap(name:String) extends TTexture(new TextureData()) with TTextureRegister{
 
     var list: List[TextureAtlas] =  _
     var map:Array[Array[Boolean]] = _

@@ -1,7 +1,7 @@
 package ru.megains.orangemc.render
 
-import java.awt.Color
 
+import java.awt.Color
 import ru.megains.mge.render.mesh.MeshMaker
 import ru.megains.mge.render.model.Model
 import ru.megains.mge.render.shader.Shader

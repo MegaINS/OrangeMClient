@@ -55,7 +55,7 @@ class OrangeMClient(config: Configuration) extends Logger[OrangeMClient] with Ga
 
     private def init(): Boolean ={
 
-        window.create()
+        window.create(this)
         Mouse.init(this)
         Bootstrap.init()
         textureManager.init()
@@ -111,6 +111,11 @@ class OrangeMClient(config: Configuration) extends Logger[OrangeMClient] with Ga
         scene = sceneIn
         scene.init()
     }
+
+    override def resize(width:Int,height:Int): Unit ={
+        scene.resize(width,height)
+    }
+
 }
 
 object OrangeMClient{

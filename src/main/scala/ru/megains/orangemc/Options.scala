@@ -3,7 +3,9 @@ package ru.megains.orangemc
 object Options {
 
 
-    var renderRangeH = 15
-    var renderRangeV = 3
+    val renderRange = new Array[Int](2)
+    renderRange(0) = 15
+    renderRange(1) = 8
+
 
 }

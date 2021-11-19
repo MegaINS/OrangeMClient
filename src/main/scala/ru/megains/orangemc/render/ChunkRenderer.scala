@@ -112,13 +112,17 @@ object ChunkRenderer {
     var startTime: Long = 0
     var blockRender: Long = 0
     var chunkUpdate = 0
-    var chunkUpdateLast = 0
-
     var chunkRender = 0
 
+    var blockRenderLast:Long = 0
+    var chunkUpdateLast = 0
+    var chunkRenderLast = 0
+
     def reset(): Unit = {
-        blockRender = 0
+        blockRenderLast = blockRender
         chunkUpdateLast = chunkUpdate
+        chunkRenderLast = chunkRender
+        blockRender = 0
         chunkUpdate = 0
         chunkRender = 0
     }

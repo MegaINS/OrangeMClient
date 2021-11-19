@@ -1,7 +1,6 @@
 package ru.megains.orangemc.network
 
 import java.net.{InetAddress, UnknownHostException}
-
 import ru.megains.orangem.network.{ConnectionState, NetworkManager}
 import ru.megains.orangem.network.packet.handshake.client.CHandshake
 import ru.megains.orangem.network.packet.status.client.CPacketServerQuery
@@ -19,7 +18,7 @@ class ServerPinger(orangeM: OrangeMClient) extends Logger[ServerPinger] {
         val serveraddress: ServerAddress = new ServerAddress(server.serverIP, 20000)
         // val networkmanager: NetworkManager = NetworkManager.createLocalClient(LocalAddress.ANY)
 
-        val networkmanager: NetworkManager = NetworkManager.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP), serveraddress.getPort,orangeM)
+        val networkmanager: NetworkManager = NetworkManagerClient.createNetworkManagerAndConnect(InetAddress.getByName(serveraddress.getIP), serveraddress.getPort,orangeM)
         // pingDestinations.add(networkmanager)
 
         server.serverMOTD = "Pinging..."

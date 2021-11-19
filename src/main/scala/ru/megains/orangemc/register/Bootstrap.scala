@@ -52,6 +52,7 @@ object Bootstrap extends Logger[OrangeMClient] {
         gameRegister.registerBlock(16, new BlockTest("test14",14))
         gameRegister.registerBlock(17, new BlockTest("test15",15))
         gameRegister.registerBlock(18, new BlockTest("test16",16))
+        gameRegister.registerBlock(20, new Block("dirt"))
 
 
         GameRegisterRender.registerBlock(19, new Block("rotateTexture"),new RenderBlockRotateTexture("grass"))

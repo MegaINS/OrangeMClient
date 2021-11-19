@@ -20,6 +20,7 @@ private[base] abstract class Gui extends MContainer {
 
     def init(): Unit
 
+    def resize(width:Int,height:Int):Unit
 
 }
 

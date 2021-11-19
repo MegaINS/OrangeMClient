@@ -11,45 +11,25 @@ import ru.megains.orangemc.render.gui.element.MButton
 import ru.megains.orangemc.render.shader.GuiShader
 import org.lwjgl.opengl.GL11._
 
-class MultiPlayerScene(orangeM:OrangeMClient) extends Scene{
-    val Z_FAR: Float = 100
-    var shader: Shader = new GuiShader()
-    var camera: OrthographicCamera = new OrthographicCamera(0, Window.wight,Window.height, 0, -100, Z_FAR)
-
-    val container:MContainer = new MContainer
+class MultiPlayerScene(orangeM: OrangeMClient) extends BaseScene {
 
     val server: ServerData = new ServerData("localhost", "localhost", true)
     val pinger = new ServerPinger(orangeM)
     var pingVal: Long = -1
-    var pingText: Text =new Text(pingVal.toString){
-        posX =100
-        posY  = 100
-    }
 
-    override def runTickKeyboard(key: Int, action: Int, mods: Int): Unit = {
+    val pingText: Text = new Text(pingVal.toString)
+    val buttonPing: MButton = new MButton("Ping", 300, 50, () => {
+        ping()
+    })
+    val buttonCancel: MButton = new MButton("Cancel", 300, 50, () => {
+        orangeM.setScene(new MainMenuScene(orangeM))
+    })
+    val buttonConnect: MButton = new MButton("Connect", 300, 50, () => {
+        connectToServer(server)
+    })
+    addChildren(buttonPing, buttonCancel, buttonConnect, pingText)
 
-    }
-
-    override def init(): Unit = {
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        shader.create()
-        container.addChildren(  new MButton("Ping",    300, 50,()=>{ping()}){
-            posX = 500
-            posY = (orangeM.window.height -150)
-        })
-
-        container.addChildren(  new MButton("Cancel",    300, 50,()=>{orangeM.setScene(new MainMenuScene(orangeM))}){
-            posX = 500
-            posY = (orangeM.window.height -70)
-        })
-        container.addChildren(  new MButton("Connect",    300, 50,()=>{connectToServer(server)}){
-            posX = 100
-            posY = (orangeM.window.height -70)
-        })
-
-        container.addChildren(pingText)
-    }
-    def connectToServer(server: ServerData) {
+    def connectToServer(server: ServerData): Unit = {
         orangeM.setScene(new ConnectingScene(this, orangeM, server))
     }
 
@@ -58,44 +38,31 @@ class MultiPlayerScene(orangeM:OrangeMClient) extends Scene{
             pinger.ping(server)
         } catch {
             case e: Throwable =>
-                //e.printStackTrace()
+            //e.printStackTrace()
 
         }
     }
-    override def render(): Unit = {
-        glEnable(GL_STENCIL_TEST)
-        glEnable(GL_BLEND)
-        glEnable(GL_CULL_FACE)
-        glDisable(GL_DEPTH_TEST)
-        camera.setOrtho(0, Window.wight,Window.height, 0, -100, Z_FAR)
-        shader.bind()
-        shader.setUniform(camera)
-
-        container.render(shader)
-
-        shader.unbind()
-
-        glDisable(GL_BLEND)
-        glDisable(GL_CULL_FACE)
-        glEnable(GL_DEPTH_TEST)
-    }
 
     override def update(): Unit = {
-        container.update()
+        super.update()
         if (pingVal != server.pingToServer) {
             pingVal = server.pingToServer
             pingText.text = pingVal.toString
         }
     }
 
-    override def destroy(): Unit = {
+    override def resize(width: Int, height: Int): Unit = {
+        pingText.posX = 100
+        pingText.posY = 100
 
-    }
+        buttonPing.posX = width / 2 + 50
+        buttonPing.posY = height - 150
 
-    override def runTickMouse(button: Int, buttonState: Boolean): Unit = {
-        if(buttonState){
-            container.mouseClick(Mouse.getX,Mouse.getY)
-        }
+        buttonCancel.posX = width / 2 + 50
+        buttonCancel.posY = height - 70
+
+        buttonConnect.posX = width / 2 - 350
+        buttonConnect.posY = height - 70
 
     }
 }

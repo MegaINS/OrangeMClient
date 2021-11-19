@@ -1,5 +1,6 @@
 package ru.megains.orangemc.render
 
+import org.joml.Matrix4f
 import ru.megains.mge.render.shader.Shader
 import ru.megains.orangem.entity.EntityPlayer
 import ru.megains.orangem.world.World
@@ -24,10 +25,23 @@ class WorldRenderer(world:World) {
         ChunkRenderer.resetRenderTime()
 
         val chunks =  getRenderChunks(entityPlayer)
-
-
-
-
+//        val viewMatrix: Matrix4f = new Matrix4f()
+//        var xPos:Float = 0.0F
+//        var yPos:Float = 0.0F
+//        var zPos:Float = 0.0F
+//        var scale:Float = 1.0F
+//        var xRot:Float = 0.0F
+//        var yRot:Float = 0.0F
+//        var zRot:Float = 0.0F
+//
+//        def buildViewMatrix(): Matrix4f ={
+//            viewMatrix.identity
+//            viewMatrix.translate(xPos, yPos, zPos)
+//            viewMatrix.rotateXYZ(Math.toRadians(xRot).toFloat, Math.toRadians(yRot).toFloat, Math.toRadians(zRot).toFloat)
+//            viewMatrix.scale(scale)
+//        }
+//
+//        shader.setUniform("modelMatrix", buildViewMatrix())
         chunks.foreach(_.render(shader))
 
 
@@ -57,10 +71,10 @@ class WorldRenderer(world:World) {
             lastZ = posZ
             playerRenderChunks.clear()
 
-            val R =  Options.renderRangeH * Options.renderRangeH
-            for(x <- posX - Options.renderRangeH to posX +  Options.renderRangeH;
-                y <- posY - Options.renderRangeV to posY +  Options.renderRangeV;
-                z <- posZ - Options.renderRangeH to posZ +  Options.renderRangeH){
+            val R =  Options.renderRange(0) * Options.renderRange(0)
+            for(x <- posX - Options.renderRange(0) to posX +  Options.renderRange(0);
+                y <- posY - Options.renderRange(1) to posY +  Options.renderRange(1);
+                z <- posZ - Options.renderRange(0) to posZ +  Options.renderRange(0)){
 
                 if((x - posX )*(x - posX)+(z-posZ)*(z-posZ)<=R){
                     playerRenderChunks += getRenderChunk(x, y, z)

@@ -22,7 +22,7 @@ out vec4 fragColor;
 vec4 calcFog(vec3 pos, vec4 colour/*, Fog fog, vec3 ambientLight, DirectionalLight dirLight*/){
 
     vec4 fogColour = vec4(0.5,0.5,0.5,1);
-    float fogDensity = 0.01;
+    float fogDensity = 0.0001;
 
     vec3 fogColor = /*fog.colour */fogColour.xyz /** (ambientLight + dirLight.colour * dirLight.intensity)*/;
     float distance = length(pos);

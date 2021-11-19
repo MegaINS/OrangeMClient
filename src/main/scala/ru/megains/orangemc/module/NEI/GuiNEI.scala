@@ -8,7 +8,7 @@ class GuiNEI extends GuiOverlay{
     val container  = new ContainerNEI
 
     def init(): Unit = {
-        posX = Window.wight - 250
+        posX = Window.width - 250
 }
 
 //    override def drawScreen(mouseX: Int, mouseY: Int): Unit = {
@@ -32,4 +32,9 @@ class GuiNEI extends GuiOverlay{
     override def update(): Unit = {
 
    }
+
+    override def resize( width:Int,height:Int): Unit = {
+
+
+    }
 }

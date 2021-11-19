@@ -9,67 +9,27 @@ import ru.megains.orangemc.render.gui.element.MButton
 import ru.megains.orangemc.render.shader.GuiShader
 import org.lwjgl.opengl.GL11._
 
-class MainMenuScene(orangeM: OrangeMClient) extends Scene{
-    val Z_FAR: Float = 100
-    var shader: Shader = new GuiShader()
-    var camera: OrthographicCamera = new OrthographicCamera(0, Window.wight,Window.height, 0, -100, Z_FAR)
+class MainMenuScene(orangeM: OrangeMClient) extends BaseScene{
 
-    val container:MContainer = new MContainer
+    val buttonSingleGame: MButton =  new MButton("SingleGame",    300, 50, ()=>{orangeM.setScene(new SelectWorldScene(orangeM))})
+    val buttonMultiPlayerGame: MButton =new MButton("MultiPlayerGame",    300, 50,()=>{orangeM.setScene(new MultiPlayerScene(orangeM))})
+    val buttonOption: MButton =new MButton("Option",    300, 50,()=>{/*orangeM.setScene(new OptionScene())*/})
+    val buttonExitGame: MButton =  new MButton("Exit game",    300, 50,()=>{orangeM.running = false})
+    addChildren( buttonSingleGame,buttonMultiPlayerGame,buttonOption,buttonExitGame)
 
+    override def resize(width:Int,height:Int): Unit = {
 
-    override def runTickKeyboard(key: Int, action: Int, mods: Int): Unit = ???
+        buttonSingleGame.posX = (width -300)/2
+        buttonSingleGame.posY = 240
 
-    override def init(): Unit = {
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        shader.create()
-        container.addChildren(  new MButton("SingleGame",    300, 50,()=>{orangeM.setScene(new SelectWorldScene(orangeM))}){
-            posX = (orangeM.window.width -300)/2
-            posY = 240
-        })
-        container.addChildren(  new MButton("MultiPlayerGame",    300, 50,()=>{orangeM.setScene(new MultiPlayerScene(orangeM))}){
-            posX = (orangeM.window.width -300)/2
-            posY = 310
-        })
-        container.addChildren(  new MButton("Option",    300, 50,()=>{/*orangeM.setScene(new OptionScene())*/}){
-            posX = (orangeM.window.width -300)/2
-            posY = 380
-        })
-        container.addChildren(  new MButton("Exit game",    300, 50,()=>{orangeM.running = false}){
-            posX = (orangeM.window.width -300)/2
-            posY = 450
-        })
-    }
+        buttonMultiPlayerGame.posX = (width -300)/2
+        buttonMultiPlayerGame.posY = 310
 
-    override def render(): Unit = {
+        buttonOption. posX = (width -300)/2
+        buttonOption. posY = 380
 
-        glEnable(GL_STENCIL_TEST)
-        glEnable(GL_BLEND)
-        glEnable(GL_CULL_FACE)
-        glDisable(GL_DEPTH_TEST)
-        camera.setOrtho(0, Window.wight,Window.height, 0, -100, Z_FAR)
-        shader.bind()
-        shader.setUniform(camera)
+        buttonExitGame.posX = (width -300)/2
+        buttonExitGame.posY = 450
 
-        container.render(shader)
-
-        shader.unbind()
-
-        glDisable(GL_BLEND)
-        glDisable(GL_CULL_FACE)
-        glEnable(GL_DEPTH_TEST)
-    }
-
-    override def update(): Unit = {
-        container.update()
-    }
-
-    override def destroy(): Unit = {
-
-    }
-
-    override def runTickMouse(button: Int, buttonState: Boolean): Unit = {
-        if(buttonState){
-            container.mouseClick(Mouse.getX,Mouse.getY)
-        }
     }
 }

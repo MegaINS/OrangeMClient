@@ -34,5 +34,7 @@ class GuiInGameMenu extends GuiGame {
 
 
     }
+
+    override def resize( width:Int,height:Int): Unit = ???
 }
 

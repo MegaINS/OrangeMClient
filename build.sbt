@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.0.1"
+ThisBuild / scalaVersion := "2.13.6"
 ThisBuild / organization := "ru.megains"
 
 //val lwjglVersion = "3.2.3"
@@ -19,9 +19,9 @@ lazy val OrangeMClient = (project in file("."))
                 "org.slf4j" % "slf4j-api" % "1.7.25",
                 "ch.qos.logback" % "logback-classic" % "1.2.3",
                 "org.scala-lang" % "scala-reflect" % "2.13.1",
-                "io.netty" % "netty-all" % "4.1.64.Final"
 
-                // "com.github.SpaiR" % "imgui-java" % "v1.76-0.11",
+                "io.netty" % "netty-all" % "4.1.64.Final",
+                 "io.github.spair" % "imgui-java-app" % "1.84.1.3"
                 // "org.liquidengine" % "legui" % "3.0.2-SNAPSHOT",
                 // "org.lwjgl" % "lwjgl-nanovg" % lwjglVersion,
                 // "com.github.kotlin-graphics.imgui" % "imgui-gl" % "v1.76",

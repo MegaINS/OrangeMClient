@@ -16,8 +16,9 @@ class GuiHotBar() extends GuiUI {
             posX = 2
             posY = 2
         }
+
         posY = Window.height - 54
-        posX = (Window.wight - 488) / 2
+        posX = (Window.width - 488) / 2
 
         addChildren(hotBar, stackSelect)
 
@@ -34,10 +35,17 @@ class GuiHotBar() extends GuiUI {
     }
 
 
+
+
     override def update(): Unit = {
         super.update()
-        posX = (Window.wight - 488) / 2
+        posX = (Window.width - 488) / 2
         stackSelect.posX = gameScene.player.inventory.stackSelect * 48
+    }
+
+    override def resize(width:Int,height:Int): Unit ={
+        posY = height - 54
+        posX = (width - 488) / 2
     }
 
 }

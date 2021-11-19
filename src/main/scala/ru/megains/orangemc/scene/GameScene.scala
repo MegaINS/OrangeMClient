@@ -2,7 +2,7 @@ package ru.megains.orangemc.scene
 
 import org.joml.Vector3i
 import org.lwjgl.glfw.GLFW._
-import ru.megains.mge.{Mouse, Scene}
+import ru.megains.mge.{Mouse, Scene, Window}
 import ru.megains.orangem.block.BlockState
 import ru.megains.orangem.entity.EntityPlayer
 import ru.megains.orangem.item.ItemBlock
@@ -10,16 +10,16 @@ import ru.megains.orangem.item.itemstack.ItemStack
 import ru.megains.orangem.utils.{FrameCounter, RayTraceResult, RayTraceType}
 import ru.megains.orangem.world.World
 import ru.megains.orangemc.{OrangeMClient, PlayerController}
-import ru.megains.orangemc.render.{ChunkRenderer, GameRenderer}
-import ru.megains.orangemc.render.gui.base.GuiRenderer
+import ru.megains.orangemc.render.{ChunkRenderer, GameRenderer, GuiRenderer, ImGuiRender}
 import ru.megains.orangemc.utils.Logger
 
-class GameScene(game:OrangeMClient) extends Scene with Logger[GameScene]{
+class GameScene(val game:OrangeMClient) extends Scene with Logger[GameScene]{
 
     var world:World = new World()
     var player:EntityPlayer = new EntityPlayer("Test")
-    var gameRenderer:GameRenderer  = new GameRenderer(this)
-    var guiRenderer:GuiRenderer  = new GuiRenderer(this)
+    val gameRenderer:GameRenderer  = new GameRenderer(this)
+    val guiRenderer:GuiRenderer  = new GuiRenderer(this)
+    val imGuiRender = new ImGuiRender(this)
     val moved = new Vector3i(0,0,0)
     var rayTrace: RayTraceResult = RayTraceResult.VOID
     var blockSetPosition:BlockState = _
@@ -33,15 +33,19 @@ class GameScene(game:OrangeMClient) extends Scene with Logger[GameScene]{
         world.addEntity(player)
         gameRenderer.init()
         guiRenderer.init()
+        imGuiRender.init()
         FrameCounter.start()
         player.world = world
-        player.setPosition(0,16,0)
+
+        player.setPosition(0,world.heightMap.getChunkHeightMap(0,0).getHeight(0,0)+1,0)
+        Window.window.setSwapInterval(0)
     }
 
     override def render(): Unit = {
 
         gameRenderer.render()
         guiRenderer.render()
+        imGuiRender.render()
         FrameCounter.gameRender()
 
     }
@@ -80,6 +84,9 @@ class GameScene(game:OrangeMClient) extends Scene with Logger[GameScene]{
 
 
         while (FrameCounter.isTimePassed(1000)) {
+
+
+
             log.info(s"${FrameCounter.frames} fps, ${FrameCounter.tick} tick, ${ChunkRenderer.chunkUpdate} chunkUpdate, ${ ChunkRenderer.chunkRender/ (if (FrameCounter.frames == 0) 1 else FrameCounter.frames)} chunkRender, ${ChunkRenderer.blockRender/ (if (FrameCounter.frames == 0) 1 else FrameCounter.frames)} blockRender ")
             ChunkRenderer.reset()
             FrameCounter.step(1000)
@@ -110,4 +117,7 @@ class GameScene(game:OrangeMClient) extends Scene with Logger[GameScene]{
     override def destroy(): Unit = {
 
     }
+
+    override def resize(width:Int,height:Int): Unit =
+        guiRenderer.resize(width,height)
 }

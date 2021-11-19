@@ -17,6 +17,7 @@ object RenderBlock {
 
       //  //mm.addNormals(0, 1, 0)
         mm.setCurrentIndex()
+        mm.addColor(1f,1f,1f)
         mm.addVertexWithUV(minX, maxY, minZ, maxU, maxV)
         mm.addVertexWithUV(minX, maxY, maxZ, maxU, minV)
         mm.addVertexWithUV(maxX, maxY, minZ, minU, maxV)
@@ -56,6 +57,7 @@ object RenderBlock {
 
        // //mm.addNormals(0, -1, 0)
         mm.setCurrentIndex()
+        mm.addColor(0.5f,0.5f,0.5f)
         mm.addVertexWithUV(minX, minY, minZ, minU, maxV)
         mm.addVertexWithUV(minX, minY, maxZ, minU, minV)
         mm.addVertexWithUV(maxX, minY, minZ, maxU, maxV)
@@ -95,6 +97,7 @@ object RenderBlock {
 
       ////mm.addNormals(-1, 0, 0)
         mm.setCurrentIndex()
+        mm.addColor(0.6f,0.6f,0.6f)
         mm.addVertexWithUV(minX, minY, minZ, minU, maxV)
         mm.addVertexWithUV(minX, minY, maxZ, maxU, maxV)
         mm.addVertexWithUV(minX, maxY, minZ, minU, minV)
@@ -135,6 +138,7 @@ object RenderBlock {
 
         //mm.addNormals(1, 0, 0)
         mm.setCurrentIndex()
+        mm.addColor(0.9f,0.9f,0.9f)
         mm.addVertexWithUV(maxX, minY, minZ, maxU, maxV)
         mm.addVertexWithUV(maxX, minY, maxZ, minU, maxV)
         mm.addVertexWithUV(maxX, maxY, minZ, maxU, minV)
@@ -172,6 +176,7 @@ object RenderBlock {
         val maxV = texture.maxV
         //mm.addNormals(0, 0, 1)
         mm.setCurrentIndex()
+        mm.addColor(0.8f,0.8f,0.8f)
         mm.addVertexWithUV(minX, minY, maxZ, minU, maxV)
         mm.addVertexWithUV(minX, maxY, maxZ, minU, minV)
         mm.addVertexWithUV(maxX, minY, maxZ, maxU, maxV)
@@ -209,6 +214,7 @@ object RenderBlock {
 
         //mm.addNormals(0, 0, -1)
         mm.setCurrentIndex()
+        mm.addColor(0.7f,0.7f,0.7f)
         mm.addVertexWithUV(minX, minY, minZ, maxU, maxV)
         mm.addVertexWithUV(minX, maxY, minZ, maxU, minV)
         mm.addVertexWithUV(maxX, minY, minZ, minU, maxV)

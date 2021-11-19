@@ -16,8 +16,8 @@ class GuiBlockSelect() extends GuiUI {
     var block_y:Text = _
     var block_z:Text = _
 
-    override def init(){
-        posY = 180
+    override def init(): Unit = {
+        posY = 200
         posZ = 100
         name = new Text("Block select:")
         block_name = new Text(""){
@@ -64,5 +64,9 @@ class GuiBlockSelect() extends GuiUI {
 
 
         }
+    }
+
+    override def resize( width:Int,height:Int): Unit ={
+
     }
 }

@@ -12,9 +12,13 @@ class GuiPlayerInventory(entityPlayer: EntityPlayer) extends GuiContainer(entity
         val playerInventory = new MSprite(new Texture("textures/gui/playerInventory.png"), 500, 240)
 
         addChildren(playerInventory)
-        posX = (Window.wight - 500) / 2
+        posX = (Window.width - 500) / 2
         posY = Window.height - 240
         super.init()
     }
 
+    override def resize(width:Int,height:Int): Unit = {
+        posX = (width - 500) / 2
+        posY = height - 240
+    }
 }
